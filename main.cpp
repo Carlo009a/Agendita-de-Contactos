@@ -146,26 +146,43 @@ public:
 };
 
 void mostrarMenu() {
-    system("cls || clear");
-    cout << "AGENDA DE CONTACTOS" << endl;
-    cout << "1. Agregar contacto" << endl;
-    cout << "2. Buscar contacto" << endl;
-    cout << "3. Listar contactos" << endl;
-    cout << "4. Eliminar contacto" << endl;
-    cout << "5. Salir" << endl;
-    cout << "Opcion: ";
+    system("cls || clear"); 
+    cout << "\n╔══════════════════════════════╗\n";
+    cout << "║       AGENDA DE CONTACTOS    ║\n";
+    cout << "╠══════════════════════════════╣\n";
+    cout << "║ 1. Agregar contacto          ║\n";
+    cout << "║ 2. Buscar contacto           ║\n";
+    cout << "║ 3. Listar contactos          ║\n";
+    cout << "║ 4. Eliminar contacto         ║\n";
+    cout << "║ 5. Salir                     ║\n";
+    cout << "╚══════════════════════════════╝\n";
+    cout << "Ingrese una opción (1-5): ";
+}
+
+// Lee y valida que la opción sea un número entre 1 y 5
+int leerOpcion() {
+    string entrada;
+    getline(cin, entrada);
+    
+    if (entrada.size() == 1 && isdigit(entrada[0])) {
+        int valor = entrada[0] - '0';
+        if (valor >= 1 && valor <= 5) {
+            return valor;
+        }
+    }
+
+    return -1; 
 }
 
 int main() {
     Agenda agenda;
     int opcion;
-    
+
     do {
         mostrarMenu();
-        cin >> opcion;
-        cin.ignore(); // Limpiar el buffer
-        
-        switch(opcion) {
+        opcion = leerOpcion();
+
+        switch (opcion) {
             case 1:
                 agenda.agregarContacto();
                 break;
@@ -182,13 +199,14 @@ int main() {
                 cout << "Saliendo..." << endl;
                 break;
             default:
-                cout << "Opcion no valida!" << endl;
+                cout << "\nOpción inválida. Por favor ingrese un número del 1 al 5.\n";
         }
-        
+
         if (opcion != 5) {
-            cout << "Presione Enter para continuar...";
-            cin.ignore();
+            cout << "\nPresione Enter para volver al menú...";
+            cin.ignore(); 
         }
+
     } while (opcion != 5);
 
     return 0;

@@ -3,6 +3,8 @@
 #include <string>
 #include <fstream>
 #include <cstdlib> 
+#include <ctime>
+#include <algorithm>
 
 using namespace std;
 
@@ -143,20 +145,51 @@ public:
             cout << "Contacto no encontrado!" << endl;
         }
     }
+
+    void editarContacto() {
+    	string nombre;
+    	cout << "Nombre del contacto a editar: ";
+    	getline(cin, nombre);
+
+	    for (size_t i = 0; i < contactos.size(); i++) {
+	        if (contactos[i].getNombre() == nombre) {
+	            string nuevoTel, nuevoEmail;
+	            cout << "Nuevo teléfono: ";
+	            getline(cin, nuevoTel);
+	            cout << "Nuevo email: ";
+	            getline(cin, nuevoEmail);
+	
+	            contactos[i] = Contacto(nombre, nuevoTel, nuevoEmail);
+	            cout << "Contacto actualizado!" << endl;
+	            return;
+	        }
+	    }
+
+    	cout << "Contacto no encontrado!" << endl;
+	}
 };
 
 void mostrarMenu() {
     system("cls || clear"); 
-    cout << "\n╔══════════════════════════════╗\n";
-    cout << "║       AGENDA DE CONTACTOS    ║\n";
-    cout << "╠══════════════════════════════╣\n";
-    cout << "║ 1. Agregar contacto          ║\n";
-    cout << "║ 2. Buscar contacto           ║\n";
-    cout << "║ 3. Listar contactos          ║\n";
-    cout << "║ 4. Eliminar contacto         ║\n";
-    cout << "║ 5. Salir                     ║\n";
-    cout << "╚══════════════════════════════╝\n";
-    cout << "Ingrese una opción (1-5): ";
+    
+    cout << "=== Bienvenido a tu Agenda de Contactos ===\n";
+    
+	// Mostrar fecha y hora actual
+    time_t ahora = time(0);
+    tm* tiempoLocal = localtime(&ahora);
+    cout << "\nFecha y hora de entrada: " << asctime(tiempoLocal) << endl;
+    
+    cout << "+------------------------------+\n";
+    cout << "|       AGENDA DE CONTACTOS    |\n";
+    cout << "|------------------------------|\n";
+    cout << "| 1. Agregar contacto          |\n";
+    cout << "| 2. Buscar contacto           |\n";
+    cout << "| 3. Listar contactos          |\n";
+    cout << "| 4. Eliminar contacto         |\n";
+    cout << "| 5. Editar contacto           |\n";
+    cout << "| 6. Salir                     |\n";
+    cout << "+------------------------------+\n";
+    cout << "\nIngrese una opcion (1-6): ";
 }
 
 // Lee y valida que la opción sea un número entre 1 y 5
@@ -166,7 +199,7 @@ int leerOpcion() {
     
     if (entrada.size() == 1 && isdigit(entrada[0])) {
         int valor = entrada[0] - '0';
-        if (valor >= 1 && valor <= 5) {
+        if (valor >= 1 && valor <= 6) {
             return valor;
         }
     }
@@ -196,18 +229,21 @@ int main() {
                 agenda.eliminarContacto();
                 break;
             case 5:
+                agenda.editarContacto();
+                break;
+            case 6:
                 cout << "Saliendo..." << endl;
                 break;
             default:
-                cout << "\nOpción inválida. Por favor ingrese un número del 1 al 5.\n";
+                cout << "\nOpcion invalida. Por favor, ingrese un numero del 1 al 6.\n";
+        }
+	
+	    if (opcion != 6) {
+            cout << "\nPresione Enter para volver al menu...";
+            cin.ignore();
         }
 
-        if (opcion != 5) {
-            cout << "\nPresione Enter para volver al menú...";
-            cin.ignore(); 
-        }
-
-    } while (opcion != 5);
+    } while (opcion != 6);
 
     return 0;
 }

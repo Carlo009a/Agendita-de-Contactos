@@ -15,7 +15,11 @@ private:
     string email;
 
 public:
-    Contacto() {}
+    Contacto() {
+        nombre= "Contacto: ";
+        telefono = "900000000";
+        email = "contacto123@gmail.com";
+    }
     
     Contacto(string n, string t, string e) {
         nombre = n;

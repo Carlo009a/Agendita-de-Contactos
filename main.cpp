@@ -173,6 +173,7 @@ public:
 	}
 };
 
+// Función para mostrar el menú principal
 void mostrarMenu() {
     system("cls || clear"); 
     
@@ -196,11 +197,12 @@ void mostrarMenu() {
     cout << "\nIngrese una opcion (1-6): ";
 }
 
-// Lee y valida que la opción sea un número entre 1 y 5
+// Función para leer y validar la opción ingresada
 int leerOpcion() {
     string entrada;
     getline(cin, entrada);
     
+    // Verifica si es un solo carácter y es un dígito
     if (entrada.size() == 1 && isdigit(entrada[0])) {
         int valor = entrada[0] - '0';
         if (valor >= 1 && valor <= 6) {
@@ -216,8 +218,8 @@ int main() {
     int opcion;
 
     do {
-        mostrarMenu();
-        opcion = leerOpcion();
+        mostrarMenu(); // Muestra el menú en consola
+        opcion = leerOpcion(); // Lee y valida la opción ingresada por el usuario
 
         switch (opcion) {
             case 1:
@@ -240,6 +242,7 @@ int main() {
                 break;
             default:
                 cout << "\nOpcion invalida. Por favor, ingrese un numero del 1 al 6.\n";
+                break;
         }
 	
 	    if (opcion != 6) {

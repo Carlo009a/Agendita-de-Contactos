@@ -157,13 +157,14 @@ public:
 
 	    for (size_t i = 0; i < contactos.size(); i++) {
 	        if (contactos[i].getNombre() == nombre) {
-	            string nuevoTel, nuevoEmail;
-	            cout << "Nuevo teléfono: ";
+	            string nuevoNom, nuevoTel, nuevoEmail;
+                cout << "\nNuevo nombre: ";
+                getline(cin,nuevoNom);
+	            cout << "Nuevo telefono: ";
 	            getline(cin, nuevoTel);
 	            cout << "Nuevo email: ";
-	            getline(cin, nuevoEmail);
-	
-	            contactos[i] = Contacto(nombre, nuevoTel, nuevoEmail);
+	            getline(cin, nuevoEmail);	
+	            contactos[i] = Contacto(nuevoNom, nuevoTel, nuevoEmail);
 	            cout << "Contacto actualizado!" << endl;
 	            return;
 	        }
